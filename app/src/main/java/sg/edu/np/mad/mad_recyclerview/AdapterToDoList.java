@@ -51,17 +51,18 @@ public class AdapterToDoList extends RecyclerView.Adapter<AdapterToDoList.ViewHo
             @Override
             public void onClick(View v) {
                 final int itemPosition = position;
-                String item = mItemList.get(itemPosition);
-                Log.v(TAG, item);
+                String item = mItemList.get(holder.getAdapterPosition());
+                Log.v(TAG, "remove item "+ item);
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Delete");
                 builder.setIcon(R.drawable.icontestbuilder);
                 builder.setMessage("Are you sure you want to delete \" " + item+ " \"");
                 builder.setCancelable(true);
+                Log.v(TAG, "total size of list items = "+mItemList.size());
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Log.v(TAG,"user chose to remove");
-                        mItemList.remove(itemPosition);
+                        mItemList.remove(holder.getAdapterPosition());
                         notifyItemRemoved(holder.getAdapterPosition());
                         notifyItemRangeChanged(holder.getAdapterPosition(), mItemList.size());
                     }
